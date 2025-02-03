@@ -23,10 +23,11 @@ export class AppController {
 
   @MessagePattern({cmd: 'login'})
   async login(@Payload() data: {email:string, password: string}): Promise<{access_token: string}> {
-    const user = await this.authService.validateUser(data.email, data.password);
+    const user = await this.authService.validateUser(data.email, data.password);    
     if (!user) {
       throw new Error('Invalid credentials');
     }
+    console.log('✅ User authenticated successfully');
     return await this.authService.login(user);
   }
 }

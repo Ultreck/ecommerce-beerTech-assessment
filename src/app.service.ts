@@ -15,7 +15,7 @@ export class UserService {
     user.name = name;
     user.email = email;
     user.password = password;
-    await user.hashPassword();
+    // await user.hashPassword();
     return await this.userRepository.save(user);
   };
 
