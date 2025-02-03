@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController as UserController } from './app.controller';
 import { UserService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -28,4 +28,10 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [UserController],
   providers: [UserService, AuthService],
 })
-export class UserModule {}
+export class UserModule {
+  private readonly logger = new Logger(UserModule.name);
+
+  constructor() {
+    this.logger.log(`✅ Connected to PostgreSQL: ${process.env.DB_HOST || '127.0.0.1'}:${process.env.DB_PORT || '5432'}`);
+  }
+}
